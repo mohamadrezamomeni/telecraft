@@ -1,0 +1,4 @@
+package telecraft
+
+func New() {
+}
