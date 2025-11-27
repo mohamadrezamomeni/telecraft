@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/mohamadrezamomeni/telecraft/adapter/state"
 	"github.com/mohamadrezamomeni/telecraft/handler"
+	"github.com/mohamadrezamomeni/telecraft/state"
 )
 
 func isErrorConfigsMatched(expected []*tgbotapi.MessageConfig, got []*tgbotapi.MessageConfig) bool {

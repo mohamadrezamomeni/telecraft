@@ -4,15 +4,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohamadrezamomeni/telecraft/entity"
 	"github.com/mohamadrezamomeni/telecraft/handler"
 	"github.com/mohamadrezamomeni/telecraft/pkg/telecrafterror"
+	"github.com/mohamadrezamomeni/telecraft/state"
 	"github.com/mohamadrezamomeni/telecraft/tree"
 )
 
 type StateRepository interface {
-	Set(string, *entity.State) error
-	Get(string) (*entity.State, bool)
+	Set(string, *state.State) error
+	Get(string) (*state.State, bool)
 	Delete(string) error
 }
 
@@ -74,7 +74,7 @@ func (r *Router) Route(context *handler.Context) (*handler.ResponseHandlerFunc, 
 	if res != nil && res.ReleaseState {
 		r.stateRepo.Delete(context.UserID)
 	} else if res != nil && (len(res.Path) > 0 || len(res.Data) > 0) {
-		r.stateRepo.Set(context.UserID, &entity.State{
+		r.stateRepo.Set(context.UserID, &state.State{
 			Data:       res.Data,
 			Path:       res.Path,
 			Expiration: time.Now().Add(2 * 60 * time.Second),

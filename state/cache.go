@@ -3,12 +3,10 @@ package state
 import (
 	"sync"
 	"time"
-
-	"github.com/mohamadrezamomeni/telecraft/entity"
 )
 
 type Cache struct {
-	data         map[string]*entity.State
+	data         map[string]*State
 	mutex        sync.RWMutex
 	ttl          time.Duration
 	defaultCache *Cache
@@ -17,12 +15,12 @@ type Cache struct {
 
 func New() *Cache {
 	return &Cache{
-		data: make(map[string]*entity.State),
+		data: make(map[string]*State),
 		ttl:  10 * time.Minute,
 	}
 }
 
-func (c *Cache) Set(key string, state *entity.State) error {
+func (c *Cache) Set(key string, state *State) error {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -31,7 +29,7 @@ func (c *Cache) Set(key string, state *entity.State) error {
 	return nil
 }
 
-func (c *Cache) Get(key string) (*entity.State, bool) {
+func (c *Cache) Get(key string) (*State, bool) {
 	c.mutex.RLock()
 	defer c.mutex.RUnlock()
 
