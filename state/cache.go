@@ -13,7 +13,7 @@ type Cache struct {
 	once         sync.Once
 }
 
-func New() *Cache {
+func newCache() Repo {
 	return &Cache{
 		data: make(map[string]*State),
 		ttl:  10 * time.Minute,

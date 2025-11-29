@@ -7,6 +7,7 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/mohamadrezamomeni/telecraft/handler"
+	"github.com/mohamadrezamomeni/telecraft/pkg/telecrafterror"
 	"github.com/mohamadrezamomeni/telecraft/state"
 )
 
@@ -39,7 +40,10 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	cacheState = state.New()
+	cacheState, err := state.NewRepository("cache")
+	if err != nil {
+		telecrafterror.Scope("testMain").Fatalf("failed to create cache state: %v", err)
+	}
 	router = New("root", cacheState)
 
 	var rootHandler handler.HandlerFunc = func(u *handler.Context) (*handler.ResponseHandlerFunc, error) {
